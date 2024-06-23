@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;500&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('bg.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            color: #fff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+        }
+        .login-container {
+            background-color: rgba(0, 0, 51, 0); /* Dark blue semi-transparent background */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Darker shadow */
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            color: #fff;
+            text-shadow: none;
+        }
+        .login-container h2 {
+            font-family: 'Pacifico', cursive;
+            margin-bottom: 25px;
+            color: #ff6f61; /* Contrast color for headers */
+        }
+        .login-container input {
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            border: 1px solid #ff6f61; /* Contrast border color */
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: rgba(255, 255, 255, 0); /* Light transparent input background */
+            color: #fff;
+        }
+        .login-container button {
+            width: 100%;
+            padding: 12px;
+            background-color: #ff6f61; /* Same contrast color for buttons */
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .login-container button:hover {
+            background-color: #ff8b80; /* Slightly lighter color on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="loginForm" onsubmit="return login()">
+            <input type="text" id="username" placeholder="Username" required>
+            <input type="password" id="password" placeholder="Password" required>
+            <button type="submit">Login</button>
+        </form>
+
+        <h2>Register</h2>
+        <form id="registerForm" onsubmit="return register()">
+            <input type="text" id="newUsername" placeholder="New Username" required>
+            <input type="password" id="newPassword" placeholder="New Password" required>
+            <button type="submit">Register</button>
+        </form>
+    </div>
+
+    <script>
+        function login() {
+            var username = document.getElementById("username").value;
+            var password = document.getElementById("password").value;
+
+            fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username: username, password: password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = "dashboard.html?username=" + username;
+                } else {
+                    alert("Invalid username or password");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("Failed to load user data");
+            });
+
+            return false; // Prevent form submission
+        }
+
+        function register() {
+            var newUsername = document.getElementById("newUsername").value;
+            var newPassword = document.getElementById("newPassword").value;
+
+            fetch('/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username: newUsername, password: newPassword })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Registration successful!");
+                    window.location.href = "dashboard.html?username=" + newUsername;
+                } else {
+                    alert(data.message || "Registration failed");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("Failed to register");
+            });
+
+            return false; // Prevent form submission
+        }
+    </script>
+</body>
+</html>

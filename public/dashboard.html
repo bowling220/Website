@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Life</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Pacifico&family=Roboto:wght@400;500&display=swap');
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: url('bg2.jpeg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            color: #fff;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .content-container {
+            background-color: rgba(0, 0, 51, 0.85); /* Dark blue semi-transparent background */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); /* Darker shadow */
+            text-align: center;
+            max-width: 800px;
+            width: 100%;
+            color: #fff;
+            text-shadow: none;
+        }
+        .content-container h1 {
+            font-family: 'Pacifico', cursive;
+            color: #ff6f61; /* Contrast color for headers */
+            margin-bottom: 20px;
+        }
+        .content-container p {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .content-container a {
+            color: #ff6f61;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        .content-container a:hover {
+            color: #ff8b80;
+        }
+    </style>
+</head>
+<body>
+    <div class="content-container">
+        <h1>Welcome to Simple Life</h1>
+        <p>Life is a journey that is meant to be embraced to the fullest every day. However, that doesn't mean you always wake up ready to seize the day, and sometimes need a reminder that life is a great gift.</p>
+        <p>Life is like a camera. Focus on what's important, capture the good times, develop from the negatives, and if things don't work out, take another shot.</p>
+        <p>Remember that life is short and it's up to you to make it sweet.</p>
+        <p>Welcome, <span id="username"></span>! <a href="logout.html">Logout</a></p>
+    </div>
+
+    <script>
+        // Get the username from the URL query string
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const username = urlParams.get('username');
+
+        // Display the username
+        document.getElementById('username').innerText = username;
+    </script>
+</body>
+</html>
